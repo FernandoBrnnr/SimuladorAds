@@ -3,7 +3,7 @@ package Simulador;
 public class Servico {
 
     private int tempoDeFila; //Tempo que o serviço espera na fila
-    
+     
 //    Construtor
     public Servico(int tempoDeFila) {
 		super();

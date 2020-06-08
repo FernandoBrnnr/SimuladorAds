@@ -10,7 +10,7 @@ public class Main {
 //  função que inicia a lista de desenvolvedores
   public static ArrayList<Desenvolvedor> iniciaListaDeDesenvolvedores(){
 	  ArrayList<Desenvolvedor> desenvolvedores = new ArrayList<Desenvolvedor>();
-	  
+	   
 	    for(int i = 0; i <= 5; i++) {
 	    	desenvolvedores.add(new Desenvolvedor(true, 0, i));
 	    }

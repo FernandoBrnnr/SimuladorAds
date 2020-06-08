@@ -56,7 +56,7 @@ public class Simulador {
 				this.filaDeAtendimento.add(new Servico(0));
 				idxDemandaAtual += 1;
 				demandaAtual = this.demandas[idxDemandaAtual];
-				
+				 
 			}
 			//Teste se há demanda na fila e se está em horoário comercial
 			if(this.filaDeAtendimento.size() > 0 && 8 < horaDoDia && horaDoDia > 18 ) {

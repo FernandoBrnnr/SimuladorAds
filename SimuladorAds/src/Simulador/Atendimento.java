@@ -6,7 +6,7 @@ public class Atendimento {
 	private int tempoAtendimento;
 	private int tempoTotal;
 	private int horaInicio;
-	private int horaTermino;
+	private int horaTermino; 
 	private int dia;
 	public Atendimento(Servico servico, 
 			           Desenvolvedor desenvolvedor, 

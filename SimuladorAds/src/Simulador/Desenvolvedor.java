@@ -6,7 +6,7 @@ public class Desenvolvedor {
 	private boolean disponivel; 
 	//Atributo pra controlar tempo de desenvolvimento
 	private int tempoDesenvolvimento; 
-    //ID do desenvolvedor
+    //ID do desenvolvedor 
 	private int id; 
 	
 //	Construtor do servidor
