@@ -11,18 +11,27 @@ public class Main {
   public static ArrayList<Desenvolvedor> iniciaListaDeDesenvolvedores(){
 	  ArrayList<Desenvolvedor> desenvolvedores = new ArrayList<Desenvolvedor>();
 	  
-	    for(int i = 0; i < 5; i++) {
-	    	System.out.println("teste");
-	    	desenvolvedores.add(new Desenvolvedor(true, 0));
+	    for(int i = 0; i <= 5; i++) {
+	    	desenvolvedores.add(new Desenvolvedor(true, 0, i));
 	    }
 	   return desenvolvedores;
    }
+//  Função que lê um arquivo csv e retorna um array com dos dados. 
+  public static int[] geraDados(String path,  int col) {
+	  int[] dados = null;
+	  return dados; 
+  }
 	
-	public static void main(String[] args) {
+  
+//  Função Main
+  public static void main(String[] args) {
 		//inicia lista de desenvolvedores
 		ArrayList<Desenvolvedor> desenvolvedores = iniciaListaDeDesenvolvedores();
-		
-       
+	   
+//	   Listagem de is dos desenvolvedores.Só teste.
+       for(Desenvolvedor dev : desenvolvedores) {
+    	   System.out.println(dev.getId());
+       }
 		
 		 
        

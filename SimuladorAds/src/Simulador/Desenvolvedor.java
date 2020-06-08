@@ -1,16 +1,20 @@
 package Simulador;
 
 public class Desenvolvedor {
-  
-	private boolean disponivel; //Atributo para testar disponibilidade do servidor
-	private int tempoDesenvolvimento; //Atributo pra controlar tempo de desenvolvimento
-	
+    
+	//Atributo para testar disponibilidade do servidor
+	private boolean disponivel; 
+	//Atributo pra controlar tempo de desenvolvimento
+	private int tempoDesenvolvimento; 
+    //ID do desenvolvedor
+	private int id; 
 	
 //	Construtor do servidor
-	public Desenvolvedor(boolean disponivel, int tempoDesenvolvimento) {
+	public Desenvolvedor(boolean disponivel, int tempoDesenvolvimento, int id) {
 		super();
 		this.disponivel = disponivel;
 		this.tempoDesenvolvimento = tempoDesenvolvimento;
+		this.id = id;
 	}
     
 	//Sets e gets
@@ -28,6 +32,14 @@ public class Desenvolvedor {
 
 	public void setTempoDesenvolvimento(int tempoDesenvolvimento) {
 		this.tempoDesenvolvimento = tempoDesenvolvimento;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	
