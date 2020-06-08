@@ -3,20 +3,27 @@ package Simulador;
 public class Atendimento {
 	private Servico servico;
 	private Desenvolvedor desenvolvedor;
-	private int tempoAtendimento;
+	private int tempoFinalAtendimento;
 	private int tempoTotal;
-	private int horaInicio;
-	private int horaTermino; 
+	private float horaInicio;
+	private float horaTermino; 
 	private int dia;
+	private int tempoAtendimento;
+	public int getTempoFinalAtendimento() {
+		return tempoFinalAtendimento;
+	}
+	public void setTempoFinalAtendimento(int tempoFinalAtendimento) {
+		this.tempoFinalAtendimento = tempoFinalAtendimento;
+	}
 	public Atendimento(Servico servico, 
 			           Desenvolvedor desenvolvedor, 
-			           int tempoAtendimento,
-			           int horaInicio,
+			           int tempoFinalAtendimento,
+			           float horaInicio,
 			           int dia) {
 		super();
 		this.servico = servico;
 		this.desenvolvedor = desenvolvedor;
-		this.tempoAtendimento = tempoAtendimento;
+		this.tempoFinalAtendimento = tempoFinalAtendimento;
 		this.horaInicio = horaInicio;
 		this.dia = dia;
 	}
@@ -44,16 +51,16 @@ public class Atendimento {
 	public void setTempoTotal(int tempoTotal) {
 		this.tempoTotal = tempoTotal;
 	}
-	public int getHoraInicio() {
+	public float getHoraInicio() {
 		return horaInicio;
 	}
 	public void setHoraInicio(int horaInicio) {
 		this.horaInicio = horaInicio;
 	}
-	public int getHoraTermino() {
+	public float getHoraTermino() {
 		return horaTermino;
 	}
-	public void setHoraTermino(int horaTermino) {
+	public void setHoraTermino(float horaTermino) {
 		this.horaTermino = horaTermino;
 	}
 	public int getDia() {
