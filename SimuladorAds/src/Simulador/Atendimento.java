@@ -3,29 +3,23 @@ package Simulador;
 public class Atendimento {
 	private Servico servico;
 	private Desenvolvedor desenvolvedor;
-	private int tempoFinalAtendimento;
-	private int tempoTotal;
 	private float horaInicio;
-	private float horaTermino; 
 	private int dia;
-	private int tempoAtendimento;
-	public int getTempoFinalAtendimento() {
-		return tempoFinalAtendimento;
-	}
-	public void setTempoFinalAtendimento(int tempoFinalAtendimento) {
-		this.tempoFinalAtendimento = tempoFinalAtendimento;
-	}
+	private int tempoFinalDeAtendimento;
+	private int tempoDeAndamentoDoDesenvolvimento;
+	
+	
 	public Atendimento(Servico servico, 
-			           Desenvolvedor desenvolvedor, 
-			           int tempoFinalAtendimento,
+			           Desenvolvedor desenvolvedor,
 			           float horaInicio,
-			           int dia) {
+			           int dia,
+			           int tempoFinalDeAtendimento) {
 		super();
 		this.servico = servico;
 		this.desenvolvedor = desenvolvedor;
-		this.tempoFinalAtendimento = tempoFinalAtendimento;
 		this.horaInicio = horaInicio;
 		this.dia = dia;
+		this.tempoFinalDeAtendimento = tempoFinalDeAtendimento;
 	}
 	public Servico getServico() {
 		return servico;
@@ -39,36 +33,36 @@ public class Atendimento {
 	public void setDesenvolvedor(Desenvolvedor desenvolvedor) {
 		this.desenvolvedor = desenvolvedor;
 	}
-	public int getTempoAtendimento() {
-		return tempoAtendimento;
-	}
-	public void setTempoAtendimento(int tempoAtendimento) {
-		this.tempoAtendimento = tempoAtendimento;
-	}
-	public int getTempoTotal() {
-		return tempoTotal;
-	}
-	public void setTempoTotal(int tempoTotal) {
-		this.tempoTotal = tempoTotal;
-	}
+	
 	public float getHoraInicio() {
 		return horaInicio;
 	}
 	public void setHoraInicio(int horaInicio) {
 		this.horaInicio = horaInicio;
 	}
-	public float getHoraTermino() {
-		return horaTermino;
-	}
-	public void setHoraTermino(float horaTermino) {
-		this.horaTermino = horaTermino;
-	}
+	
 	public int getDia() {
 		return dia;
 	}
 	public void setDia(int dia) {
 		this.dia = dia;
+	}
+	public int getTempoFinalDeAtendimento() {
+		return tempoFinalDeAtendimento;
+	}
+	public void setTempoFinalDeAtendimento(int tempoFinalDeAtendimento) {
+		this.tempoFinalDeAtendimento = tempoFinalDeAtendimento;
+	}
+	public void setHoraInicio(float horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+	public int getTempoDeAndamentoDoDesenvolvimento() {
+		return tempoDeAndamentoDoDesenvolvimento;
+	}
+	public void setTempoDeAndamentoDoDesenvolvimento(int tempoDeAndamentoDoDesenvolvimento) {
+		this.tempoDeAndamentoDoDesenvolvimento = tempoDeAndamentoDoDesenvolvimento;
 	} 
+	
 	
 	
 	

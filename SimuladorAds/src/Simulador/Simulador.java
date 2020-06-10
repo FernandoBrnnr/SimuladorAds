@@ -59,9 +59,10 @@ public class Simulador {
 			if(!(this.tempo < demandaAtual)) {
               
 				//Gera uma demanda de servico
-				this.filaDeAtendimento.add(new Servico(0));
+				this.filaDeAtendimento.add(new Servico(0,tempoAtendimento, idxDemandaAtual));
 				idxDemandaAtual += 1;
 				demandaAtual = this.demandas[idxDemandaAtual];
+				tempoAtendimento = this.duracaoDeAtendimentos[idxDemandaAtual];
 				 
 			}
 			//Teste se há demanda na fila e se está em horoário comercial
@@ -75,17 +76,32 @@ public class Simulador {
 					  //Testa se ainda tem servicos na lista 
 					  if(this.filaDeAtendimento.size() > 0) {
 						 //Gera um atendimento e coloca na lista de desenvolvimento
-						 this.listaDeDesenvolvimento.add(new Atendimento(this.filaDeAtendimento.remove(), 
-								                                         dev, 
-								                                         tempoAtendimento, 
+						 Servico servico = this.filaDeAtendimento.remove();
+						 int tempoFinalDeAtendimento = this.tempo + servico.getTempoDeAtendimento();
+						 
+						 this.listaDeDesenvolvimento.add(new Atendimento(servico, 
+								                                         dev,
 								                                         this.horaDoDia,
-								                                         this.dia ));
+								                                         this.dia,
+								                                         tempoFinalDeAtendimento));
 						 
 						 //Remove o desenvolvedor da lista de livres e coloca na lista de ocupados
 						 this.desenvolvedoresOcupados.add(dev);
 						 this.ListaDesenvolvedores.remove(dev); 
 					  }
 				  });
+				}
+				
+				//Testa se sobrou servicos na fila de atendimento
+				if(this.filaDeAtendimento.size() > 0) {
+				     
+					//Add tempo de fila para cada servico que continua na fila
+					this.filaDeAtendimento.forEach(servico -> {
+					     
+						int tempoDeFila = servico.getID() + 1;
+						servico.setTempoDeFila(tempoDeFila);
+					});
+					
 				}
 				
 				//Testa se tem servicos em desenvolvimento
@@ -95,16 +111,24 @@ public class Simulador {
 					this.listaDeDesenvolvimento.forEach((atendimento) -> {
 						
 						//Testa se o tempo de atendimento acabou
-						if(atendimento.getTempoAtendimento() >= atendimento.getTempoFinalAtendimento()) {
+						if(this.tempo >= atendimento.getTempoFinalDeAtendimento()) {
 							
 							//Calcula o tempo total do atendimento. Tempo de desenvolvimento + tempo de fila 
-							int tempoTotalDoAtendimento = atendimento.getTempoFinalAtendimento() + atendimento.getServico().getTempoDeFila();
+							int tempoTotalDoAtendimento = atendimento.getServico().getTempoDeAtendimento() + atendimento.getServico().getTempoDeFila();
 							
-							//Seta a hora em que o atendimento terminou e quanto tempo levou desde a abertura do servico
-							atendimento.setTempoTotal(tempoTotalDoAtendimento);
-					 		atendimento.setHoraTermino(this.horaDoDia);
+							
 							
 							//Add a lista de atendimentos encerrados e retira da lista de desenvolvimento
+					 		
+							//Cria uma instancia do servico finalizado
+					 		int servicoID = atendimento.getServico().getID();
+					 		int desenvolvedorID = atendimento.getDesenvolvedor().getId();
+				 	 		int tempoFila = atendimento.getServico().getTempoDeFila();
+					 		AtendimentoFinalizado atendimentoFinalizado = new AtendimentoFinalizado(servicoID,
+					 				                                                                desenvolvedorID, 
+					 				                                                                tempoTotalDoAtendimento,
+					 				                                                                tempoFila,
+					 				                                                                horaDoDia);
 							this.atendimentosEncerrados.add(atendimento);
 							this.listaDeDesenvolvimento.remove(atendimento); 
 							
@@ -116,29 +140,29 @@ public class Simulador {
 						}else {
 							
 							//Aumenta o tempo de atendimento
-							int TempoAtendimento = atendimento.getTempoAtendimento() + 1;
-							atendimento.setTempoAtendimento(tempoAtendimento);
+							int TempoAtendimento = atendimento.getTempoDeAndamentoDoDesenvolvimento() + 1;
+							atendimento.setTempoDeAndamentoDoDesenvolvimento(TempoAtendimento);
 						}
-					}) ;
+					});
 					
 				}
-				
-				//Atualiza a hora a cada 10 minutos e o dia. O dia pula o final de semana.
-				if(this.tempo > 0 && this.tempo == 600) {
-					this.horaDoDia += 0.1; 
-				}
-				if(this.tempo > 0 && this.tempo == 86400) {
-					if(this.dia < 5) {
-						this.dia++;
-					}else {
-						this.dia = 1;
-					}
-					this.horaDoDia = 0; 
-									
-				}
-				
+					
 			}
+            //Atualiza contador de tempo
+			this.tempo++;
 			
+			//Atualiza a hora a cada 10 minutos e o dia. O dia pula o final de semana.
+			if(this.tempo > 0 && this.tempo == 600) {
+				this.horaDoDia += 0.1; 
+			}
+			if(this.tempo > 0 && this.tempo == 86400) {
+				if(this.dia < 5) {
+					this.dia++;
+				}else {
+					this.dia = 1;
+				}
+				this.horaDoDia = 0; 
+			}
 		}
 			
 	}
