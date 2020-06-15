@@ -1,6 +1,9 @@
 package Simulador;
 
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -17,17 +20,19 @@ public class Simulador {
    //fila de chamados em espera
      private Queue<Servico> filaDeAtendimento = new LinkedList<Servico>(); 
    //ArrayList pra lista de chamados em desenvolvimento
-     private ArrayList<Atendimento> listaDeDesenvolvimento = new ArrayList<Atendimento>(); 
+     private ArrayList<Atendimento> listaDeDesenvolvimento = new ArrayList<Atendimento>();
+     private ArrayList<Atendimento> retirarAtendiento = new ArrayList<Atendimento>();
    //Arraylist para desenvolvedores
-	 private ArrayList<Desenvolvedor> ListaDesenvolvedores; 
+	 private ArrayList<Desenvolvedor> ListaDesenvolvedores = new ArrayList<Desenvolvedor>();; 
    //Lista de desenvolvedores ocupados
-	 private ArrayList<Desenvolvedor> desenvolvedoresOcupados; 
+	 private ArrayList<Desenvolvedor> desenvolvedoresOcupados = new ArrayList<Desenvolvedor>(); 
 	 //Lista com os atendimento encerrados
-	 private ArrayList<Atendimento> atendimentosEncerrados = new ArrayList<Atendimento>(); 
+	 private ArrayList<AtendimentoFinalizado> atendimentosEncerrados = new ArrayList<AtendimentoFinalizado>(); 
 	 //Controla a hora
 	 private float horaDoDia = 0;
 	 //Controla o dia
 	 private int dia = 1;
+	 private int conta = 0;
 	 
 	 
 	 //Construtor do simulador
@@ -43,21 +48,20 @@ public class Simulador {
 	public void iniciaSimulador() {
 		//código
 		//Seta o tempo de execucao do simulador em segundos. Valor de uma semana.
-		int tempoDeExecucao = 604800;
+		int tempoDeExecucao = 2592000;
 		//Dias da semana. 1-7
 		
-		
+		System.out.println("Inicio"); 
 		//Controlador do array com as demandas; 
 		int idxDemandaAtual = 0;
 		int demandaAtual = this.demandas[idxDemandaAtual];
 		int tempoAtendimento = this.duracaoDeAtendimentos[idxDemandaAtual];
-		
+		int cont = 0;
 		//Looping principal do simulador
 		while(this.tempo < tempoDeExecucao) {
-			
 			//Teste se esta na hora de entrar a demanda
-			if(!(this.tempo < demandaAtual)) {
-              
+			if(this.tempo >= demandaAtual) {
+				
 				//Gera uma demanda de servico
 				this.filaDeAtendimento.add(new Servico(0,tempoAtendimento, idxDemandaAtual));
 				idxDemandaAtual += 1;
@@ -66,13 +70,14 @@ public class Simulador {
 				 
 			}
 			//Teste se há demanda na fila e se está em horoário comercial
-			if(this.filaDeAtendimento.size() > 0 && 8 < this.horaDoDia && this.horaDoDia > 18 ) {
-				
+			if(this.filaDeAtendimento.size() > 0 ) {
+				System.out.println("Começa um atendumento");
+//				this.conta++;
 				//Testa se há desenvolvedores livres
 				if(this.ListaDesenvolvedores.size() > 0) {
 					
 				  //Executa para cada desenvolvedor livre
-				  this.ListaDesenvolvedores.forEach((dev) -> {
+				  this.ListaDesenvolvedores.forEach( (dev) -> {
 					  //Testa se ainda tem servicos na lista 
 					  if(this.filaDeAtendimento.size() > 0) {
 						 //Gera um atendimento e coloca na lista de desenvolvimento
@@ -87,9 +92,11 @@ public class Simulador {
 						 
 						 //Remove o desenvolvedor da lista de livres e coloca na lista de ocupados
 						 this.desenvolvedoresOcupados.add(dev);
-						 this.ListaDesenvolvedores.remove(dev); 
+						  
 					  }
 				  });
+				  
+				  this.ListaDesenvolvedores.removeAll(this.desenvolvedoresOcupados);
 				}
 				
 				//Testa se sobrou servicos na fila de atendimento
@@ -98,7 +105,7 @@ public class Simulador {
 					//Add tempo de fila para cada servico que continua na fila
 					this.filaDeAtendimento.forEach(servico -> {
 					     
-						int tempoDeFila = servico.getID() + 1;
+						int tempoDeFila = servico.getTempoDeFila() + 1;
 						servico.setTempoDeFila(tempoDeFila);
 					});
 					
@@ -106,12 +113,13 @@ public class Simulador {
 				
 				//Testa se tem servicos em desenvolvimento
 				if(this.listaDeDesenvolvimento.size() > 0) {
-					
+					System.out.println(this.listaDeDesenvolvimento.size());
 					//Executa para cada atendimento sendo desenvolvido
 					this.listaDeDesenvolvimento.forEach((atendimento) -> {
-						
+						this.conta++;
 						//Testa se o tempo de atendimento acabou
 						if(this.tempo >= atendimento.getTempoFinalDeAtendimento()) {
+							
 							
 							//Calcula o tempo total do atendimento. Tempo de desenvolvimento + tempo de fila 
 							int tempoTotalDoAtendimento = atendimento.getServico().getTempoDeAtendimento() + atendimento.getServico().getTempoDeFila();
@@ -129,9 +137,9 @@ public class Simulador {
 					 				                                                                tempoTotalDoAtendimento,
 					 				                                                                tempoFila,
 					 				                                                                horaDoDia);
-							this.atendimentosEncerrados.add(atendimento);
-							this.listaDeDesenvolvimento.remove(atendimento); 
-							
+							this.atendimentosEncerrados.add(atendimentoFinalizado);
+//							this.listaDeDesenvolvimento.remove(atendimento); 
+							this.retirarAtendiento.add(atendimento);
 							//Tira o desenvolvedor da lista de ocupados e coloca na lista de livres
 							this.desenvolvedoresOcupados.remove(atendimento.getDesenvolvedor());
 							this.ListaDesenvolvedores.add(atendimento.getDesenvolvedor()); 
@@ -145,6 +153,8 @@ public class Simulador {
 						}
 					});
 					
+					this.listaDeDesenvolvimento.removeAll(this.retirarAtendiento);
+					this.retirarAtendiento.removeAll(this.retirarAtendiento);
 				}
 					
 			}
@@ -152,10 +162,10 @@ public class Simulador {
 			this.tempo++;
 			
 			//Atualiza a hora a cada 10 minutos e o dia. O dia pula o final de semana.
-			if(this.tempo > 0 && this.tempo == 600) {
+			if(this.tempo > 0 && this.tempo % 600 == 0)  {
 				this.horaDoDia += 0.1; 
 			}
-			if(this.tempo > 0 && this.tempo == 86400) {
+			if(this.tempo > 0 && this.tempo % 86400 == 0) {
 				if(this.dia < 5) {
 					this.dia++;
 				}else {
@@ -164,6 +174,8 @@ public class Simulador {
 				this.horaDoDia = 0; 
 			}
 		}
+		
+		geraCSV(this.atendimentosEncerrados);
 			
 	}
     
@@ -200,7 +212,42 @@ public class Simulador {
 		this.filaDeAtendimento = filaDeAtendimento;
 	}
 
-	
+	public void  geraCSV(ArrayList<AtendimentoFinalizado> atendimentosFinalizados) {
+		
+		FileWriter csvFile = null;
+		
+		try {
+			csvFile = new FileWriter("C:\\Users\\Fernando\\Desktop\\arquivos\\Finalizados.csv");
+			
+			csvFile.append("Servico_id, Desenvolvedor_id, Tempo_Total, Tempo_de_fila");
+			csvFile.append("\n");
+			
+			for(AtendimentoFinalizado atendimento : atendimentosFinalizados) {
+				csvFile.append(String.valueOf(atendimento.getServicoID()));
+				csvFile.append(","); 
+				csvFile.append(String.valueOf(atendimento.getDesenvolvedorID()));
+				csvFile.append(","); 
+				csvFile.append(String.valueOf(atendimento.getTempoTotal()));
+				csvFile.append(","); 
+				csvFile.append(String.valueOf(atendimento.getTempoDeFila()));
+				csvFile.append(","); 
+				csvFile.append("\n");
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				csvFile.flush();
+				csvFile.close();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 	 
 	 
 

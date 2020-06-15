@@ -12,8 +12,8 @@ public class Main {
     
 	
 //  função que inicia a lista de desenvolvedores
-  public static Queue<Desenvolvedor> iniciaListaDeDesenvolvedores(){
-	  Queue<Desenvolvedor> desenvolvedores = new LinkedList<Desenvolvedor>();
+  public static ArrayList<Desenvolvedor> iniciaListaDeDesenvolvedores(){
+	  ArrayList<Desenvolvedor> desenvolvedores = new ArrayList<Desenvolvedor>();
 	   
 	    for(int i = 0; i <= 5; i++) {
 	    	desenvolvedores.add(new Desenvolvedor(true, 0, i));
@@ -22,36 +22,30 @@ public class Main {
    }
 //  Função que lê um arquivo csv e retorna um array com dos dados. 
   public static int[] geraDados(String path) {
-	  int[] dados = null;
+	  int[] dados = new int[139]; 
 	  //Lê o arquivo
 	  File arquivoCSV = new File(path);
-	     
+	  
       try{
           
           //cria um scanner para ler o arquivo
           Scanner leitor = new Scanner(arquivoCSV);
-          
           //variavel que armazenara as linhas do arquivo
           String linhasDoArquivo = new String();
-          //leitor.nextLine();  //ignora a primeira linha
           
           //percorre todo o arquivo
+          int j = 0;
           while(leitor.hasNext()){
-              
+        	  
               //recebe cada linha do arquivo
               linhasDoArquivo = leitor.nextLine();
               
-              //separa os campos entre as virgulas de cada linha
-              String[] valoresEntreVirgulas = linhasDoArquivo.split(";");
               
-              //imprime a coluna que quiser
-              System.out.println(valoresEntreVirgulas[0] + " - ");
-              
-            
-              //imprime todo o arquivo
-              //System.out.println(linhasDoArquivo);
-              
+              dados[j] = Integer.parseInt(linhasDoArquivo);
+             
+              j++;
           }
+
       
       }catch(FileNotFoundException e){
           
@@ -63,10 +57,22 @@ public class Main {
 //  Função Main
   public static void main(String[] args) {
 		//inicia lista de desenvolvedores
-		Queue<Desenvolvedor> desenvolvedores = iniciaListaDeDesenvolvedores();
+	    ArrayList<Desenvolvedor> desenvolvedores = iniciaListaDeDesenvolvedores();
 	    
+		int [] horaChamados = geraDados("C:\\Users\\Fernando\\Desktop\\arquivos\\tempos_abertura_segundos.csv");
+		int [] duracaoAtendimento = geraDados("C:\\Users\\Fernando\\Desktop\\arquivos\\duracaoAtendimento.csv");
 		
+		int tamanho =  duracaoAtendimento.length;
+		System.out.println(tamanho);
 		
+//		desenvolvedores.forEach((dev) -> {
+//			
+//			System.out.println(dev.getId());
+//		});
+		
+    	Simulador simulacao = new Simulador(horaChamados, duracaoAtendimento, desenvolvedores );
+
+		simulacao.iniciaSimulador();
        
 	}
 
