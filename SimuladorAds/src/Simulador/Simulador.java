@@ -217,7 +217,7 @@ public class Simulador {
 		FileWriter csvFile = null;
 		
 		try {
-			csvFile = new FileWriter("C:\\Users\\Fernando\\Desktop\\arquivos\\Finalizados.csv");
+			csvFile = new FileWriter("C:\\caminho\\Finalizados.csv");
 			
 			csvFile.append("Servico_id, Desenvolvedor_id, Tempo_Total, Tempo_de_fila");
 			csvFile.append("\n");
