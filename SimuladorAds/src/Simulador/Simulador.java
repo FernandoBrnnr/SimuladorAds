@@ -70,7 +70,7 @@ public class Simulador {
 				 
 			}
 			//Teste se há demanda na fila e se está em horoário comercial
-			if(this.filaDeAtendimento.size() > 0 ) {
+			if(this.filaDeAtendimento.size() > 0 && 8 < this.horaDoDia && 18 > this.horaDoDia ) {
 				System.out.println("Começa um atendumento");
 //				this.conta++;
 				//Testa se há desenvolvedores livres
@@ -217,7 +217,7 @@ public class Simulador {
 		FileWriter csvFile = null;
 		
 		try {
-			csvFile = new FileWriter("C:\\caminho\\Finalizados.csv");
+			csvFile = new FileWriter("C:\\Users\\Fernando\\Desktop\\arquivos\\6_dev_Sem_Virgula.csv");
 			
 			csvFile.append("Servico_id, Desenvolvedor_id, Tempo_Total, Tempo_de_fila");
 			csvFile.append("\n");
@@ -230,8 +230,8 @@ public class Simulador {
 				csvFile.append(String.valueOf(atendimento.getTempoTotal()));
 				csvFile.append(","); 
 				csvFile.append(String.valueOf(atendimento.getTempoDeFila()));
-				csvFile.append(","); 
-				csvFile.append("\n");
+//				csvFile.append(","); 
+				csvFile.append("\n"); 
 			}
 			
 			

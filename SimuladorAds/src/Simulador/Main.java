@@ -59,10 +59,10 @@ public class Main {
 		//inicia lista de desenvolvedores
 	    ArrayList<Desenvolvedor> desenvolvedores = iniciaListaDeDesenvolvedores();
 	    
-		int [] horaChamados = geraDados("C:\\caminho\\tempos_abertura_segundos.csv");
-		int [] duracaoAtendimento = geraDados("C:\\caminho\\duracaoAtendimento.csv");
+		int [] horaChamados = geraDados("C:\\Users\\Fernando\\Desktop\\arquivos\\tempos_abertura_segundos.csv");
+		int [] duracaoAtendimento = geraDados("C:\\Users\\Fernando\\Desktop\\arquivos\\duracaoAtendimento.csv");
 		
-		int tamanho =  duracaoAtendimento.length;
+		int tamanho =  duracaoAtendimento.length; 
 		System.out.println(tamanho);
 		
 //		desenvolvedores.forEach((dev) -> {
