@@ -169,10 +169,10 @@ public class Simulador {
 				this.horaDoDia += 0.5; 
 			}
 			if(this.tempo > 0 && this.tempo % 86400 == 0) {
-				if(this.dia < 7) {
-					this.dia++;
-				}else {
+				if(this.dia == 7) {
 					this.dia = 1;
+				}else {
+					this.dia++;
 				}
 				this.horaDoDia = 0; 
 			}
@@ -221,7 +221,7 @@ public class Simulador {
 		FileWriter csvFile = null;
 		
 		try {
-			csvFile = new FileWriter("C:\\Users\\Fernando\\Desktop\\arquivos\\Resultados\\6_dev_mudanças_2.csv");
+			csvFile = new FileWriter("C:\\Users\\Fernando\\Desktop\\arquivos\\Resultados\\6_dev_mudanças_3.csv");
 			
 			csvFile.append("Servico_id, Desenvolvedor_id, Tempo_Total, Tempo_de_fila");
 			csvFile.append("\n");
