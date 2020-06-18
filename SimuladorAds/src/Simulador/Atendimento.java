@@ -5,21 +5,21 @@ public class Atendimento {
 	private Desenvolvedor desenvolvedor;
 	private float horaInicio;
 	private int dia;
-	private int tempoFinalDeAtendimento;
-	private int tempoDeAndamentoDoDesenvolvimento;
+	private int tempoDeAtendimento;
+	private int tempoDecorrido = 0;
 	
 	
 	public Atendimento(Servico servico, 
 			           Desenvolvedor desenvolvedor,
 			           float horaInicio,
 			           int dia,
-			           int tempoFinalDeAtendimento) {
+			           int tempoDeAtendimento) {
 		super();
 		this.servico = servico;
 		this.desenvolvedor = desenvolvedor;
 		this.horaInicio = horaInicio;
 		this.dia = dia;
-		this.tempoFinalDeAtendimento = tempoFinalDeAtendimento;
+		this.tempoDeAtendimento = tempoDeAtendimento;
 	}
 	public Servico getServico() {
 		return servico;
@@ -47,21 +47,27 @@ public class Atendimento {
 	public void setDia(int dia) {
 		this.dia = dia;
 	}
-	public int getTempoFinalDeAtendimento() {
-		return tempoFinalDeAtendimento;
-	}
-	public void setTempoFinalDeAtendimento(int tempoFinalDeAtendimento) {
-		this.tempoFinalDeAtendimento = tempoFinalDeAtendimento;
-	}
+	
 	public void setHoraInicio(float horaInicio) {
 		this.horaInicio = horaInicio;
 	}
-	public int getTempoDeAndamentoDoDesenvolvimento() {
-		return tempoDeAndamentoDoDesenvolvimento;
+	
+	public int getTempoDecorrido() {
+		return tempoDecorrido;
 	}
-	public void setTempoDeAndamentoDoDesenvolvimento(int tempoDeAndamentoDoDesenvolvimento) {
-		this.tempoDeAndamentoDoDesenvolvimento = tempoDeAndamentoDoDesenvolvimento;
+	public void setTempoDecorrido(int tempoDecorrido) {
+		this.tempoDecorrido = tempoDecorrido;
+	}
+	public int getTempoDeAtendimento() {
+		return tempoDeAtendimento;
+	}
+	public void setTempoDeAtendimento(int tempoDeAtendimento) {
+		this.tempoDeAtendimento = tempoDeAtendimento;
 	} 
+	
+	
+	
+	
 	
 	
 	

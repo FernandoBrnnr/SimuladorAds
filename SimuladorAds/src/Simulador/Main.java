@@ -53,7 +53,9 @@ public class Main {
 	  return dados; 
   }
 	
-  
+  public static void printID(Desenvolvedor dev) {
+	  System.out.println(dev.getId());
+  }
 //  Função Main
   public static void main(String[] args) {
 		//inicia lista de desenvolvedores
@@ -62,13 +64,6 @@ public class Main {
 		int [] horaChamados = geraDados("C:\\Users\\Fernando\\Desktop\\arquivos\\tempos_abertura_segundos.csv");
 		int [] duracaoAtendimento = geraDados("C:\\Users\\Fernando\\Desktop\\arquivos\\duracaoAtendimento.csv");
 		
-		int tamanho =  duracaoAtendimento.length; 
-		System.out.println(tamanho);
-		
-//		desenvolvedores.forEach((dev) -> {
-//			
-//			System.out.println(dev.getId());
-//		});
 		
     	Simulador simulacao = new Simulador(horaChamados, duracaoAtendimento, desenvolvedores );
 
